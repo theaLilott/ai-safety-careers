@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Safety Career Profiles</title>
+<style>
+  /* ── Config ── */
+  :root {
+    --bg: #f8f7f4;
+    --surface: #ffffff;
+    --border: #e2e0db;
+    --border-strong: #c8c5be;
+    --text: #1a1917;
+    --text-2: #5c5a56;
+    --text-3: #9c9a96;
+    --accent: #b84c2a;
+    --accent-light: #fce8df;
+    --accent-mid: #d4724a;
+    --navy: #1e3558;
+    --warn: #e9c46a;
+    --radius: 8px;
+    --radius-lg: 14px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Progress bar ── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+    z-index: 100;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--navy);
+    padding: 0.875rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .header-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn-about {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius);
+    padding: 5px 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+
+  .btn-about:hover { background: rgba(255,255,255,0.2); }
+
+  .step-indicator {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── About panel ── */
+  #about-panel {
+    display: none;
+    background: var(--navy);
+    color: rgba(255,255,255,0.85);
+    padding: 1.25rem 1.5rem;
+    font-size: 14px;
+    line-height: 1.7;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  #about-panel.open { display: block; }
+
+  #about-panel a { color: var(--accent-mid); }
+
+  /* ── Layout ── */
+  .wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 6rem;
+  }
+
+  /* ── Section cards ── */
+  .section {
+    display: none;
+  }
+
+  .section.active {
+    display: block;
+    animation: fadeIn 0.25s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-desc {
+    color: var(--text-2);
+    font-size: 15px;
+    margin-bottom: 2rem;
+    line-height: 1.65;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  /* ── Form fields ── */
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  label .req {
+    color: var(--accent);
+    margin-left: 2px;
+  }
+
+  input[type="text"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.15s;
+    appearance: none;
+  }
+
+  input[type="text"]:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(184,76,42,0.12);
+  }
+
+  textarea { min-height: 100px; resize: vertical; }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%235c5a56' d='M7 7l3 3 3-3'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    padding-right: 36px;
+  }
+
+  /* ── Radio / checkbox groups ── */
+  .radio-group, .check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .radio-option, .check-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .radio-option:hover, .check-option:hover {
+    border-color: var(--accent-mid);
+    background: var(--accent-light);
+  }
+
+  .radio-option input, .check-option input {
+    margin-top: 1px;
+    flex-shrink: 0;
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+  }
+
+  .role-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .role-option:hover { border-color: var(--accent-mid); background: var(--accent-light); }
+
+  .role-option input {
+    margin-top: 3px;
+    flex-shrink: 0;
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+  }
+
+  .role-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .role-desc-text {
+    font-size: 12px;
+    color: var(--text-3);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+
+  .role-group-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin: 1.25rem 0 0.5rem;
+    padding-left: 2px;
+  }
+
+  .role-group-label:first-child { margin-top: 0; }
+
+  /* ── Likert scale ── */
+  .likert-question {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  .likert-code {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text-3);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .likert-poles {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: start;
+    margin-bottom: 0.75rem;
+  }
+
+  .pole {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--text-2);
+  }
+
+  .pole-right { text-align: right; }
+
+  .likert-scale {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    align-items: center;
+    padding-top: 2px;
+  }
+
+  .likert-scale label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 0 6px;
+    font-size: 11px;
+    color: var(--text-3);
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+
+  .likert-scale input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-strong);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .likert-scale input[type="radio"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(184,76,42,0.15);
+  }
+
+  .likert-scale input[type="radio"]:hover:not(:checked) {
+    border-color: var(--accent-mid);
+  }
+
+  .likert-connector {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin: 0 2px;
+    margin-bottom: 22px;
+  }
+
+  @media (max-width: 540px) {
+    .likert-poles {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .likert-poles > div:empty { display: none; }
+    .pole { padding: 6px 10px; background: var(--bg); border-radius: 6px; border-left: 3px solid var(--border-strong); }
+    .pole::before {
+      content: "1 = ";
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+    .pole-right {
+      text-align: left;
+      border-left: 3px solid var(--accent-mid);
+    }
+    .pole-right::before {
+      content: "5 = ";
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+    .likert-scale label { padding: 0 3px; font-size: 10px; }
+    .likert-scale input[type="radio"] { width: 18px; height: 18px; }
+  }
+
+  /* ── Time allocation grid ── */
+  .time-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 12px;
+    align-items: center;
+  }
+
+  .time-grid label {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+
+  .time-grid input[type="number"] {
+    width: 70px;
+    padding: 7px 10px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-family: inherit;
+    text-align: right;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .time-grid input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(184,76,42,0.12);
+  }
+
+  #time-sum {
+    grid-column: 1 / -1;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 500;
+    text-align: right;
+  }
+
+  #time-sum.over { background: #fde8e8; color: #c0392b; }
+
+  /* ── Navigation ── */
+  .nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 50;
+  }
+
+  .btn {
+    padding: 10px 24px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: none;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-2);
+    border: 1px solid var(--border-strong);
+  }
+
+  .btn-ghost:hover { background: var(--bg); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 2px 8px rgba(184,76,42,0.25);
+  }
+
+  .btn-primary:hover { background: #9a3d22; }
+  .btn-primary:disabled { background: var(--border-strong); box-shadow: none; cursor: not-allowed; }
+
+  /* ── Notice ── */
+  .notice {
+    background: var(--accent-light);
+    border: 1px solid var(--accent-mid);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  /* ── Confirmation ── */
+  .confirm-icon {
+    width: 56px; height: 56px;
+    background: var(--accent-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── Hint ── */
+  .hint {
+    font-size: 12px;
+    color: var(--text-3);
+    margin-top: 4px;
+  }
+
+  /* ── Other input row ── */
+  .other-row {
+    display: none;
+    margin-top: 6px;
+    padding-left: 28px;
+  }
+
+  .other-row.visible { display: block; }
+
+  /* ── Validation highlight ── */
+  .likert-question.needs-answer {
+    border-color: #e05252;
+    box-shadow: 0 0 0 3px rgba(224,82,82,0.14);
+  }
+
+  .err-banner {
+    display: none;
+    background: #fde8e8;
+    border: 1px solid #f5a3a3;
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #b83232;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .err-banner.visible { display: block; }
+
+  /* ── Skip button (2intro section) ── */
+  .btn-skip {
+    background: transparent;
+    border: none;
+    color: var(--text-3);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 4px 0;
+    display: block;
+    margin: 0.75rem auto 0;
+  }
+
+  .btn-skip:hover { color: var(--text-2); }
+
+  /* ── FAQ accordion ── */
+  details.faq {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  details.faq summary {
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    user-select: none;
+  }
+
+  details.faq summary::-webkit-details-marker { display: none; }
+
+  details.faq summary::after {
+    content: '+';
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text-3);
+    flex-shrink: 0;
+    margin-left: 12px;
+    transition: transform 0.2s;
+  }
+
+  details.faq[open] summary::after { content: '−'; }
+
+  details.faq .faq-body {
+    padding: 0 16px 14px;
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  details.faq .faq-body p { margin-top: 10px; }
+  details.faq .faq-body p:first-child { margin-top: 10px; }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.75rem 0;
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar" style="width: 0%"></div>
+
+<header class="header">
+  <span class="header-title">AI Safety Career Profiles</span>
+  <div class="header-right">
+    <button class="btn-about" onclick="toggleAbout()">About this project</button>
+    <span class="step-indicator" id="step-label"></span>
+  </div>
+</header>
+
+<div id="about-panel">
+  <div style="max-width:680px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+    <div>
+      <strong style="color:white;font-size:13px;letter-spacing:0.06em;text-transform:uppercase">Who built this</strong>
+      <p style="margin-top:8px">Hey! I'm Manon. Over the past year I've been starting and running AI Safety Saarland, organising the Safe AI Germany Incubator, mentoring local AI safety groups around the world, and TAing at an ML4Good bootcamp. This summer I'll be a resident at the Generator.</p>
+      <p style="margin-top:8px">When I started out in AI safety myself, the only career paths I really saw were technical research or policy. As I got more involved with field-building, I realised there are many more roles and that people filling them are in great demand right now. But it wasn't clear to me what those roles actually entailed. I ended up talking to grantmakers and research managers at EAG SF and got a much richer picture for myself.</p>
+      <p style="margin-top:8px">When I taught at ML4Good this May, I saw how many people there also couldn't see career options beyond technical or policy research. That's what motivated me to build this.</p>
+      <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px">
+        <a href="https://www.linkedin.com/in/manon-kempermann-%F0%9F%94%B6-0a8396263/" target="_blank" style="color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:5px 11px;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://manonkempermann.eu" target="_blank" style="color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:5px 11px;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          manonkempermann.eu
+        </a>
+        <a href="mailto:manon@kempermann.email" style="color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:5px 11px;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          manon@kempermann.email
+        </a>
+      </div>
+    </div>
+    <div>
+      <strong style="color:white;font-size:13px;letter-spacing:0.06em;text-transform:uppercase">The tool</strong>
+      <p style="margin-top:8px">This is an independent community resource, not affiliated with any organisation. It aims to give anyone exploring AI safety a concrete, interactive way to discover roles they might not have considered, based on how they actually work and think, not just their technical background.</p>
+      <p style="margin-top:8px">The tool works by matching users' working preferences against role profiles built from professionals' survey data, the responses collected here. The more professionals contribute, the more accurate the profiles become.</p>
+      <p style="margin-top:8px">Users answer around 30 questions about how they work. Their profile is then matched against averaged professionals' role profiles to surface fit scores for each role, including ones they would never have thought to consider. Each role card shows a day-to-day description, surprising skills, who struggles there, and links to further resources.</p>
+      <p style="margin-top:8px">The tool will be freely accessible to anyone, anywhere, and I'm actively working towards making it available through organisations that help people enter the field.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 0 — Role info
+  ══════════════════════════════════════════════ -->
+  <div class="section active" data-section="0">
+    <p class="section-label">Professionals survey</p>
+    <h1 class="section-title">Most AI safety career paths are still invisible.</h1>
+    <p class="section-desc">
+      Many people entering the field still only see technical research or policy and governance work as the career paths in AI Safety. But the field needs and offers many more: research managers,
+      program directors, educators, community builders, communications leads,
+      operations generalists, chiefs of staff. While in recent months fellowships like the Generator Residency have popped up, these roles are still quite invisible to many newcomers. It might be easy to imagine what a technical researcher is doing day-to-day, but quite unclear what this looks like for grantmakers or research managers.
+    </p>
+    <p class="section-desc" style="margin-top: -1rem;">
+      This tool aims to help overcome this information gap. It will give anyone exploring AI safety a concrete,
+      interactive way to discover roles they might not have considered based on how they
+      actually work and think, not just their technical background. Someone might go in
+      assuming they want to become a researcher, and discover that research management or
+      grant-making is actually a much better fit.
+    </p>
+    <p class="section-desc" style="margin-top: -1rem;">
+      <strong>To build accurate role profiles, we need data from people working in those various roles like you.</strong>
+      Your responses will be anonymised, averaged with others in similar roles, and used
+      to populate the tool's role cards. The tool will be openly available as a community
+      resource. This form takes about 12–15 minutes and your responses will directly help people aiming to contribute to the field understand what the day-to-day work in your role actually looks like and where they may fit best.
+    </p>
+
+    <div style="margin-bottom: 1.75rem;">
+      <details class="faq">
+        <summary>How is this different from 80,000 Hours career profiles?</summary>
+        <div class="faq-body">
+          <p>80k's career profiles are excellent and I highly recommend them. But they are necessarily
+          broad, describing paths at a high level, aimed at helping people choose between
+          major categories of work.</p>
+          <p>This tool tries to go deeper in a different direction: the day-to-day work style of
+          specific roles, the surprising skills they require, and who would really thrive versus
+          struggle in them. It will interactively guide users through questions on their working preferences and match their scores to those of different career profiles. The goal is that people discover more types of AI Safety jobs they might be a good fit for.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>Wouldn't this replace the good conversations people have at EAG?</summary>
+        <div class="faq-body">
+          <p>No. EAGs are great places for people entering the field to learn about new career options, but this tool should actually help them make even more out of their time there.</p>
+          <p>If people don't know about roles or haven't even considered a second whether this could be interesting to them, they likely won't think to seek out a
+          person with that role at EAG. This tool surfaces the full landscape early, so people arrive
+          at those conversations with better questions.</p>
+          <p>Access to EAG and EAGx is also uneven. When organising my local university group, I often had people facing barriers based on nationality, background, geography, and timing. This tool will give people at any place and time a way to learn more about how they could contribute to AI Safety best.</p>
+        </div>
+      </details>
+
+      <details class="faq">
+        <summary>How will this data be used?</summary>
+        <div class="faq-body">
+          <p>All responses are anonymised and aggregated by role type. Nothing will be
+          attributed to any individual or organisation. Role profiles in the tool will reflect
+          averages and patterns across multiple professionals, not any single person's answers.</p>
+          <p>I am actively seeking collaboration with organisations that target people entering
+          the field like introductory courses, fellowships, bootcamps, university groups, and other entry points to
+          offer this as a shared community resource they can point people to. The tool itself will be
+          free and openly accessible.</p>
+          <p>No data will be sold, shared with third parties, or used for anything beyond
+          building and improving this tool.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="divider"></div>
+    <p class="section-label" style="margin-bottom: 0.75rem;">Your role</p>
+
+    <div class="card">
+      <div style="margin-bottom: 1.25rem">
+        <label for="role-title">Role title <span style="font-size:12px;color:var(--text-3);font-weight:400">(optional)</span></label>
+        <input type="text" id="role-title" name="role-title" placeholder="e.g. Research Manager, Policy Researcher…">
+      </div>
+
+      <div style="margin-bottom: 1.25rem">
+        <label for="org-name">Organisation <span style="font-size:12px;color:var(--text-3);font-weight:400">(optional)</span></label>
+        <input type="text" id="org-name" name="org-name" placeholder="Organisation name (leave blank to stay anonymous)">
+      </div>
+
+      <div style="margin-bottom: 1.25rem">
+        <label>Organisation type <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="org-type" value="Technical AI lab"> Technical AI lab (Anthropic, DeepMind, OpenAI…)</label>
+          <label class="radio-option"><input type="radio" name="org-type" value="AI safety nonprofit or think tank"> AI safety nonprofit or think tank</label>
+          <label class="radio-option"><input type="radio" name="org-type" value="Government body or multilateral institution"> Government body or multilateral institution</label>
+          <label class="radio-option"><input type="radio" name="org-type" value="Academic research group or university"> Academic research group or university</label>
+          <label class="radio-option"><input type="radio" name="org-type" value="Independent / self-funded"> Independent / self-funded</label>
+          <label class="radio-option"><input type="radio" name="org-type" value="Other" id="org-type-other-radio"> Other</label>
+          <div class="other-row" id="org-type-other-row">
+            <input type="text" name="org-type-other" placeholder="Please describe…">
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 0">
+        <label>Time in this role <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="tenure" value="Less than 6 months"> Less than 6 months</label>
+          <label class="radio-option"><input type="radio" name="tenure" value="6–18 months"> 6–18 months</label>
+          <label class="radio-option"><input type="radio" name="tenure" value="1.5–3 years"> 1.5–3 years</label>
+          <label class="radio-option"><input type="radio" name="tenure" value="3+ years"> 3+ years</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 0b — Role selection
+  ══════════════════════════════════════════════ -->
+  <div class="section" data-section="0b">
+    <p class="section-label">Role classification</p>
+    <h2 class="section-title">Which role type fits you best?</h2>
+    <p class="section-desc">
+      Pick the description that is closest to your current role. If you wear several hats,
+      choose the one that takes up most of your time. This helps us average responses
+      across people doing similar work.
+    </p>
+
+    <div class="card">
+      <div class="radio-group" id="role-select-group">
+
+        <p class="role-group-label">Research &amp; technical</p>
+        <label class="role-option"><input type="radio" name="role-type" value="Theoretical / formal alignment researcher">
+          <div><div class="role-name">Theoretical / formal alignment researcher</div>
+          <div class="role-desc-text">Agent foundations, decision theory, formal verification of AI systems</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Empirical safety researcher">
+          <div><div class="role-name">Empirical safety researcher</div>
+          <div class="role-desc-text">Red-teaming, interpretability, scalable oversight, safety evaluations</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Research engineer / ML engineer">
+          <div><div class="role-name">Research engineer / ML engineer</div>
+          <div class="role-desc-text">Training pipelines, evaluation frameworks, research infrastructure and tooling</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Hardware / compute security researcher">
+          <div><div class="role-name">Hardware / compute security researcher</div>
+          <div class="role-desc-text">Physical hardware mechanisms for AI governance (compute monitoring, hardware-based verification, chip-level safety)</div></div>
+        </label>
+
+        <p class="role-group-label">Strategy &amp; funding</p>
+        <label class="role-option"><input type="radio" name="role-type" value="Macrostrategy / AI strategy researcher">
+          <div><div class="role-name">Macrostrategy / AI strategy researcher</div>
+          <div class="role-desc-text">Strategic landscape, civilisational priorities, cross-disciplinary synthesis</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Forecaster / research analyst">
+          <div><div class="role-name">Forecaster / research analyst</div>
+          <div class="role-desc-text">Quantitative uncertainty about AI timelines, risks, and policy options</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Grantmaker">
+          <div><div class="role-name">Grantmaker</div>
+          <div class="role-desc-text">Allocating funding to AI safety research and field-building</div></div>
+        </label>
+
+        <p class="role-group-label">Policy &amp; governance</p>
+        <label class="role-option"><input type="radio" name="role-type" value="AI policy researcher">
+          <div><div class="role-name">AI policy researcher</div>
+          <div class="role-desc-text">Research on governance and policy, think tank or academic style</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Government AI advisor">
+          <div><div class="role-name">Government AI advisor</div>
+          <div class="role-desc-text">Working inside government or adjacent, translating AI understanding into policy</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="International AI governance specialist">
+          <div><div class="role-name">International AI governance specialist</div>
+          <div class="role-desc-text">Treaties, standards, multilateral coordination (UN, GPAI, OECD…)</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="AI legal / regulatory specialist">
+          <div><div class="role-name">AI legal / regulatory specialist</div>
+          <div class="role-desc-text">Legal frameworks, EU AI Act, regulatory compliance</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Policy advocate">
+          <div><div class="role-name">Policy advocate / campaigner</div>
+          <div class="role-desc-text">Pushing for specific AI policy outcomes, stakeholder mobilisation</div></div>
+        </label>
+
+        <p class="role-group-label">Communications</p>
+        <label class="role-option"><input type="radio" name="role-type" value="Journalist / science writer">
+          <div><div class="role-name">Journalist / science writer</div>
+          <div class="role-desc-text">Explaining AI safety to general audiences through writing</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Policy communicator">
+          <div><div class="role-name">Policy communicator</div>
+          <div class="role-desc-text">Briefings, memos, and communications targeted at policymakers</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Multimedia / public educator">
+          <div><div class="role-name">Multimedia / public educator</div>
+          <div class="role-desc-text">Video essays, podcasts, or social media about AI safety</div></div>
+        </label>
+
+        <p class="role-group-label">Talent &amp; education</p>
+        <label class="role-option"><input type="radio" name="role-type" value="Program / fellowship manager">
+          <div><div class="role-name">Program / fellowship manager</div>
+          <div class="role-desc-text">Designing and running talent development programs (fellowships, bootcamps)</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Teacher / course facilitator">
+          <div><div class="role-name">Teacher / course facilitator</div>
+          <div class="role-desc-text">Teaching AI safety content (ML4Good, BlueDot,...)</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Career advisor / coach">
+          <div><div class="role-name">Career advisor / coach</div>
+          <div class="role-desc-text">Helping people navigate careers in AI safety</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Recruiter / talent scout">
+          <div><div class="role-name">Recruiter / talent scout</div>
+          <div class="role-desc-text">Finding, attracting, and placing talent into AI safety roles</div></div>
+        </label>
+
+        <p class="role-group-label">Community &amp; field-building</p>
+        <label class="role-option"><input type="radio" name="role-type" value="Community builder / org founder">
+          <div><div class="role-name">Community builder / org founder</div>
+          <div class="role-desc-text">Building organisations and communities in AI safety</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Events organiser">
+          <div><div class="role-name">Events organiser</div>
+          <div class="role-desc-text">Workshops, retreats, conferences in AI safety</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Community health manager">
+          <div><div class="role-name">Community health manager</div>
+          <div class="role-desc-text">Culture, wellbeing, and mental health within AI safety communities or orgs</div></div>
+        </label>
+
+        <p class="role-group-label">Org management &amp; operations</p>
+        <label class="role-option"><input type="radio" name="role-type" value="Director / org leader">
+          <div><div class="role-name">Director / org leader</div>
+          <div class="role-desc-text">Executive or co-director, responsible for overall strategy, culture, fundraising, and accountability</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Research manager">
+          <div><div class="role-name">Research manager</div>
+          <div class="role-desc-text">Managing researchers and amplifying their output</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Operations generalist">
+          <div><div class="role-name">Operations generalist</div>
+          <div class="role-desc-text">Finance, HR, logistics, and ops at an AI safety organisation</div></div>
+        </label>
+        <label class="role-option"><input type="radio" name="role-type" value="Chief of staff">
+          <div><div class="role-name">Chief of staff</div>
+          <div class="role-desc-text">Multiplying the impact of a senior leader</div></div>
+        </label>
+
+        <p class="role-group-label">None of the above</p>
+        <label class="role-option"><input type="radio" name="role-type" value="Other" id="role-type-other-radio">
+          <div><div class="role-name">Other / hybrid role</div>
+          <div class="role-desc-text">My role doesn't fit neatly into any of the above</div></div>
+        </label>
+        <div class="other-row" id="role-type-other-row">
+          <input type="text" name="role-type-other" placeholder="Briefly describe your role type…">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION orient — How your responses are used
+  ══════════════════════════════════════════════ -->
+  <div class="section" data-section="orient">
+    <p class="section-label">Before you start</p>
+    <h2 class="section-title">How your responses build the tool</h2>
+    <p class="section-desc">
+      This survey has two parts. Here is what each one is for, and how it shows up
+      in the tool that people will use.
+    </p>
+
+    <!-- Part 1 explanation -->
+    <div class="card" style="margin-bottom:1rem">
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="background:var(--navy);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;margin-top:2px">1</div>
+        <div>
+          <p style="font-weight:600;font-size:15px;margin-bottom:4px">Profile questions <span style="font-weight:400;color:var(--text-3);font-size:13px">· ~10 min · required</span></p>
+          <p style="font-size:14px;color:var(--text-2);line-height:1.65">
+            30 scale questions about how you actually work: your autonomy, collaboration style,
+            output type, technical depth, and so on. Your answers produce a <strong>role profile</strong>:
+            a set of scores across 7 dimensions that describes what working in your role is like.
+          </p>
+          <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin-top:8px">
+            We average these across everyone who identifies with your role type. The result is an
+            holistic profile for that role. It is not a job description but a more representative picture of what the
+            work actually feels like day to day.
+          </p>
+          <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin-top:8px">
+            When a user takes the tool, they answer the same questions about their own preferences.
+            Their profile is then compared to all the role profiles, and the closest matches surface
+            at the top, including roles they may never have considered.
+          </p>
+          <!-- Mini mockup of the matching output -->
+          <div style="margin-top:14px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;font-size:12px">
+            <div style="background:var(--bg);padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-3);font-size:11px;font-family:monospace;letter-spacing:.06em;text-transform:uppercase">Tool output: role matches (example)</div>
+            <div style="padding:10px 12px;display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:white;border:1px solid var(--border);border-radius:6px">
+                <span style="font-size:16px;font-weight:600;color:#1D9E75;min-width:36px;font-family:monospace">87%</span>
+                <span style="font-weight:500">Research manager</span>
+                <span style="margin-left:auto;font-size:11px;color:var(--text-3);background:var(--bg);padding:2px 7px;border-radius:4px">Management</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:white;border:1px solid var(--border);border-radius:6px">
+                <span style="font-size:16px;font-weight:600;color:#EF9F27;min-width:36px;font-family:monospace">74%</span>
+                <span style="font-weight:500">Program / fellowship manager</span>
+                <span style="margin-left:auto;font-size:11px;color:var(--text-3);background:var(--bg);padding:2px 7px;border-radius:4px">Talent</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:white;border:1px solid var(--border);border-radius:6px;opacity:.6">
+                <span style="font-size:16px;font-weight:600;color:#888;min-width:36px;font-family:monospace">61%</span>
+                <span style="font-weight:500">Empirical safety researcher</span>
+                <span style="margin-left:auto;font-size:11px;color:var(--text-3);background:var(--bg);padding:2px 7px;border-radius:4px">Research</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part 2 explanation -->
+    <div class="card" style="margin-bottom:1.75rem">
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="background:var(--accent);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;margin-top:2px">2</div>
+        <div>
+          <p style="font-weight:600;font-size:15px;margin-bottom:4px">Role description <span style="font-weight:400;color:var(--text-3);font-size:13px">· ~5 min · optional</span></p>
+          <p style="font-size:14px;color:var(--text-2);line-height:1.65">
+            A short set of open questions about what your role is actually like: the day-to-day
+            activities, the skills it requires, who would struggle in it, and common
+            misconceptions. These feed the <strong>role cards</strong> users read when a role
+            surfaces as a match.
+          </p>
+          <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin-top:8px">
+            This is the part that makes the tool useful and helps users look deeper into their best match.
+            A user who has never heard of "chief of staff at an AI safety org" can read your words
+            and understand concretely what that means and whether it appeals to them.
+          </p>
+          <!-- Mini mockup of a role card -->
+          <div style="margin-top:14px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;font-size:12px">
+            <div style="background:var(--bg);padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-3);font-size:11px;font-family:monospace;letter-spacing:.06em;text-transform:uppercase">Tool output: role card (example)</div>
+            <div style="padding:12px 14px;background:white">
+              <div style="font-weight:600;font-size:14px;margin-bottom:2px">Research manager</div>
+              <div style="font-size:11px;color:var(--accent);background:var(--accent-light);display:inline-block;padding:1px 8px;border-radius:4px;margin-bottom:10px">87% match</div>
+              <p style="font-size:13px;color:var(--text-2);margin-bottom:8px;line-height:1.55">Day to day: reviewing research proposals, running team standups, unblocking researchers, writing internal strategy memos.</p>
+              <p style="font-size:13px;color:var(--text-2);margin-bottom:8px;line-height:1.55"><strong>Surprising skill:</strong> knowing when <em>not</em> to weigh in, and learning to hold space for others to solve problems.</p>
+              <p style="font-size:13px;color:var(--text-2);line-height:1.55"><strong>Who struggles here:</strong> people who need to be the one generating the ideas, or who find other people's problems less interesting than their own.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice">
+      The profile questions (Part 1) describe your role as it <em>is</em>, not how you'd ideally want it to be. The more honest the input, the more accurate the role profiles and the better the tool works for everyone.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 1a — Blocks A & B
+  ══════════════════════════════════════════════ -->
+  <div class="section" data-section="1a">
+    <p class="section-label">Work profile · Part 1 of 4</p>
+    <h2 class="section-title">Work &amp; intellectual style</h2>
+    <p class="section-desc">
+      Place yourself on each scale based on how your work <em>actually is</em> and not
+      how you wish it were or how it is described in a job posting. 1 = fully left, 5 = fully right.
+    </p>
+    <div class="err-banner" id="err-1a">Please answer all highlighted questions before continuing.</div>
+
+    <!-- Block A -->
+    <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.75rem; margin-top: 0.25rem;">Work Style</p>
+
+    <div class="likert-question">
+      <div class="likert-code">A1</div>
+      <div class="likert-poles">
+        <div class="pole">In my work, my time is mostly self-directed. I set my own priorities with minimal fixed external commitments.</div>
+        <div></div>
+        <div class="pole pole-right">My time is largely structured by meetings, deadlines, and coordination with others.</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="A1" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A1" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A1" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A1" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A1" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">A2</div>
+      <div class="likert-poles">
+        <div class="pole">Most of my best output comes from long, uninterrupted solo blocks focused on one thing.</div>
+        <div></div>
+        <div class="pole pole-right">Most of my best output comes through frequent exchanges (conversations, collaboration, real-time problem-solving).</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="A2" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A2" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A2" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A2" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A2" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">A3</div>
+      <div class="likert-poles">
+        <div class="pole">I work mostly with a small, tight group within my immediate area.</div>
+        <div></div>
+        <div class="pole pole-right">I work across many different people, teams, and organisations outside my core area.</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="A3" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A3" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A3" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A3" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A3" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">A4</div>
+      <div class="likert-poles">
+        <div class="pole">I define my own direction: I decide what I work on and why.</div>
+        <div></div>
+        <div class="pole pole-right">I work toward goals that others set, and I prefer it that way.</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="A4" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A4" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A4" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A4" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A4" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">A5</div>
+      <div class="likert-poles">
+        <div class="pole">The point of my work is my individual contribution. I am the one doing the work.</div>
+        <div></div>
+        <div class="pole pole-right">The point of my work is making others' contributions better. I multiply the impact of many people.</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="A5" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A5" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A5" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A5" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A5" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">A6</div>
+      <div class="likert-poles">
+        <div class="pole">I mostly produce one main type of output on a regular rhythm.</div>
+        <div></div>
+        <div class="pole pole-right">My tasks, stakeholders, and outputs shift substantially week to week.</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="A6" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A6" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A6" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A6" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="A6" value="5">5</label>
+      </div>
+    </div>
+
+    <!-- Block B -->
+    <p style="font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.75rem; margin-top: 1.5rem;">Intellectual and research style</p>
+
+    <div class="likert-question">
+      <div class="likert-code">B1</div>
+      <div class="likert-poles">
+        <div class="pole">I spend most of my intellectual energy generating novel frameworks or ideas.</div>
+        <div></div>
+        <div class="pole pole-right">I spend most of it synthesising, translating, or communicating ideas that others generate.</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="B1" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B1" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B1" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B1" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B1" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">B2</div>
+      <div class="likert-poles">
+        <div class="pole">I go very deep on one question or research agenda over extended periods.</div>
+        <div></div>
+        <div class="pole pole-right">I work across many questions or projects simultaneously, making connections between them.</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="B2" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B2" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B2" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B2" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B2" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">B3</div>
+      <div class="likert-poles">
+        <div class="pole">My core output is new knowledge (findings, papers, insights that advance understanding).</div>
+        <div></div>
+        <div class="pole pole-right">My core output is running systems (programs, tools, organisations, communities).</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="B3" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B3" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B3" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B3" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B3" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">B4</div>
+      <div class="likert-poles">
+        <div class="pole">Writing is a central output of my work (papers, memos, essays, reports).</div>
+        <div></div>
+        <div class="pole pole-right">Execution is the central output. The result is something that runs or keeps running, not something that's read.</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="B4" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B4" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B4" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B4" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B4" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">B5</div>
+      <div class="likert-poles">
+        <div class="pole">I need to understand something deeply before I can act on it with confidence.</div>
+        <div></div>
+        <div class="pole pole-right">I prefer trying things, observing what happens, and iterating from there.</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="B5" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B5" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B5" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B5" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B5" value="5">5</label>
+      </div>
+    </div>
+
+    <div class="likert-question">
+      <div class="likert-code">B6</div>
+      <div class="likert-poles">
+        <div class="pole">I work on things where feedback on whether they mattered comes on very long timescales (years).</div>
+        <div></div>
+        <div class="pole pole-right">I get relatively quick feedback on whether what I'm doing is working (weeks to months).</div>
+      </div>
+      <div class="likert-scale">
+        <label><input type="radio" name="B6" value="1">1</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B6" value="2">2</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B6" value="3">3</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B6" value="4">4</label>
+        <div class="likert-connector"></div>
+        <label><input type="radio" name="B6" value="5">5</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 1b — Blocks C & D
+  ══════════════════════════════════════════════ -->
+  <div class="section" data-section="1b">
+    <p class="section-label">Work profile · Part 2 of 4</p>
+    <h2 class="section-title">Relationships &amp; communication</h2>
+    <p class="section-desc">1 = fully left, 5 = fully right. 3 = neither applies, or it varies a lot.</p>
+    <div class="err-banner" id="err-1b">Please answer all highlighted questions before continuing.</div>
+
+    <p style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem;">Relational and amplifier disposition</p>
+
+    <div class="likert-question"><div class="likert-code">C1</div><div class="likert-poles"><div class="pole">Explaining things to others is peripheral to my core work.</div><div></div><div class="pole pole-right">Teaching, mentoring, and explaining is one of the most central and satisfying parts of my work.</div></div><div class="likert-scale"><label><input type="radio" name="C1" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="C1" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="C1" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="C1" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="C1" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">C2</div><div class="likert-poles"><div class="pole">Managing others and developing their careers is a small part of what I do.</div><div></div><div class="pole pole-right">Managing people and actively developing their careers is a major and valued part of my role.</div></div><div class="likert-scale"><label><input type="radio" name="C2" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="C2" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="C2" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="C2" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="C2" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">C3</div><div class="likert-poles"><div class="pole">Organising events, workshops, or gatherings is a minor or absent part of my work.</div><div></div><div class="pole pole-right">Organising and hosting events, workshops, or gatherings is a major part of what I do and something I get energy from.</div></div><div class="likert-scale"><label><input type="radio" name="C3" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="C3" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="C3" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="C3" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="C3" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">C4</div><div class="likert-poles"><div class="pole">I maintain a small number of deep relationships within my immediate team or field.</div><div></div><div class="pole pole-right">I maintain broad relationships across many institutions and contexts. Being a connector is part of the work.</div></div><div class="likert-scale"><label><input type="radio" name="C4" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="C4" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="C4" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="C4" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="C4" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">C5</div><div class="likert-poles"><div class="pole">When thinking about careers, I'm focused on my own trajectory.</div><div></div><div class="pole pole-right">Supporting other people's career development and navigation is a major part of what I do.</div></div><div class="likert-scale"><label><input type="radio" name="C5" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="C5" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="C5" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="C5" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="C5" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">C6</div><div class="likert-poles"><div class="pole">I focus on a well-scoped project and deliver it.</div><div></div><div class="pole pole-right">I hold the broader picture and coordinate others toward it.</div></div><div class="likert-scale"><label><input type="radio" name="C6" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="C6" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="C6" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="C6" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="C6" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">C7</div><div class="likert-poles"><div class="pole">Identifying, approaching, and hiring people into specific roles is not part of my work.</div><div></div><div class="pole pole-right">Identifying, approaching, and hiring people into specific roles is a significant part of my work.</div></div><div class="likert-scale"><label><input type="radio" name="C7" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="C7" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="C7" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="C7" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="C7" value="5">5</label></div></div>
+
+    <p style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem;margin-top:1.5rem;">Communication style</p>
+
+    <div class="likert-question"><div class="likert-code">D1</div><div class="likert-poles"><div class="pole">When explaining something complex, my default is narrative and storytelling.</div><div></div><div class="pole pole-right">My default is structured argument and formal prose.</div></div><div class="likert-scale"><label><input type="radio" name="D1" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="D1" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="D1" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="D1" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="D1" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">D2</div><div class="likert-poles"><div class="pole">My outputs are aimed at broad general audiences who didn't actively seek them out.</div><div></div><div class="pole pole-right">My outputs are aimed at specific decision-makers or specialists who need them to act.</div></div><div class="likert-scale"><label><input type="radio" name="D2" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="D2" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="D2" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="D2" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="D2" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">D3</div><div class="likert-poles"><div class="pole">Building a public presence is part of my role.</div><div></div><div class="pole pole-right">I work mostly behind the scenes; attribution matters little and I prefer it that way.</div></div><div class="likert-scale"><label><input type="radio" name="D3" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="D3" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="D3" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="D3" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="D3" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">D4</div><div class="likert-poles"><div class="pole">Most of my communication is internal (within my organisation or close network).</div><div></div><div class="pole pole-right">Much of my communication is outward-facing (external relationships, public representation).</div></div><div class="likert-scale"><label><input type="radio" name="D4" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="D4" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="D4" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="D4" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="D4" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">D5</div><div class="likert-poles"><div class="pole">My outputs stand on their own. People read or use them without me having to actively sell them.</div><div></div><div class="pole pole-right">Actively persuading, pitching, or mobilising specific people is central to how I have impact.</div></div><div class="likert-scale"><label><input type="radio" name="D5" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="D5" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="D5" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="D5" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="D5" value="5">5</label></div></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 1c — Blocks E & F
+  ══════════════════════════════════════════════ -->
+  <div class="section" data-section="1c">
+    <p class="section-label">Work profile · Part 3 of 4</p>
+    <h2 class="section-title">Strategy, judgment &amp; technical depth</h2>
+    <p class="section-desc">1 = fully left, 5 = fully right. 3 = neither applies, or it varies a lot.</p>
+    <div class="err-banner" id="err-1c">Please answer all highlighted questions before continuing.</div>
+
+    <p style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem;">Strategy and judgment</p>
+
+    <div class="likert-question"><div class="likert-code">E1</div><div class="likert-poles"><div class="pole">I work on a well-defined problem within an established direction.</div><div></div><div class="pole pole-right">I spend significant time deciding which problems or directions deserve attention and resources.</div></div><div class="likert-scale"><label><input type="radio" name="E1" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="E1" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="E1" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="E1" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="E1" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">E2</div><div class="likert-poles"><div class="pole">I focus on my own output without thinking much about what the field as a whole needs.</div><div></div><div class="pole pole-right">I regularly think about where the field is going and what it needs next.</div></div><div class="likert-scale"><label><input type="radio" name="E2" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="E2" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="E2" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="E2" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="E2" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">E3</div><div class="likert-poles"><div class="pole">How organisations are structured and how decisions get made is not a significant part of my thinking.</div><div></div><div class="pole pole-right">Organisational design and how decisions get made is something I think about and actively work on.</div></div><div class="likert-scale"><label><input type="radio" name="E3" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="E3" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="E3" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="E3" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="E3" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">E4</div><div class="likert-poles"><div class="pole">I work on things with fairly well-established value.</div><div></div><div class="pole pole-right">I regularly take high-risk, high-leverage bets with genuinely uncertain outcomes.</div></div><div class="likert-scale"><label><input type="radio" name="E4" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="E4" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="E4" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="E4" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="E4" value="5">5</label></div></div>
+
+    <p style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem;margin-top:1.5rem;">Technical depth</p>
+
+    <div class="likert-question"><div class="likert-code">F1</div><div class="likert-poles"><div class="pole">Strong ML or formal methods is a core skill central to my daily work.</div><div></div><div class="pole pole-right">I remain technically literate but ML and formal methods are not my primary tools.</div></div><div class="likert-scale"><label><input type="radio" name="F1" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="F1" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="F1" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="F1" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="F1" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">F2</div><div class="likert-poles"><div class="pole">Writing good, robust code and building well-engineered systems is a core craft I care about.</div><div></div><div class="pole pole-right">Writing code is not part of my work.</div></div><div class="likert-scale"><label><input type="radio" name="F2" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="F2" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="F2" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="F2" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="F2" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">F3</div><div class="likert-poles"><div class="pole">If I engage with technical papers, I do so mostly for high-level findings and implications.</div><div></div><div class="pole pole-right">I engage with technical papers for their content (methodology, proofs, and implementation details).</div></div><div class="likert-scale"><label><input type="radio" name="F3" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="F3" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="F3" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="F3" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="F3" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">F4</div><div class="likert-poles"><div class="pole">My work is entirely screen-based and digital.</div><div></div><div class="pole pole-right">My work involves significant hands-on, physical, or in-person components (hardware, lab work, on-site logistics).</div></div><div class="likert-scale"><label><input type="radio" name="F4" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="F4" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="F4" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="F4" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="F4" value="5">5</label></div></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 1d — Block G
+  ══════════════════════════════════════════════ -->
+  <div class="section" data-section="1d">
+    <p class="section-label">Work profile · Part 4 of 4</p>
+    <h2 class="section-title">Impact theory</h2>
+    <p class="section-desc">1 = fully left, 5 = fully right. 3 = neither applies, or it varies a lot.</p>
+    <div class="err-banner" id="err-1d">Please answer all highlighted questions before continuing.</div>
+
+    <p style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:.75rem;">Impact theory</p>
+
+    <div class="likert-question"><div class="likert-code">G1</div><div class="likert-poles"><div class="pole">I directly work on AI safety problems myself.</div><div></div><div class="pole pole-right">My leverage comes from enabling, funding, or multiplying those who do direct work.</div></div><div class="likert-scale"><label><input type="radio" name="G1" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="G1" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="G1" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="G1" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="G1" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">G2</div><div class="likert-poles"><div class="pole">The impact of what I do is visible within 1–2 years.</div><div></div><div class="pole pole-right">The impact of what I do will likely take a decade or more to become visible.</div></div><div class="likert-scale"><label><input type="radio" name="G2" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="G2" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="G2" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="G2" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="G2" value="5">5</label></div></div>
+
+    <div class="likert-question"><div class="likert-code">G3</div><div class="likert-poles"><div class="pole">My work follows a well-established path with reasonably clear success criteria.</div><div></div><div class="pole pole-right">I am pioneering a less well-defined path, with significant uncertainty about what success looks like.</div></div><div class="likert-scale"><label><input type="radio" name="G3" value="1">1</label><div class="likert-connector"></div><label><input type="radio" name="G3" value="2">2</label><div class="likert-connector"></div><label><input type="radio" name="G3" value="3">3</label><div class="likert-connector"></div><label><input type="radio" name="G3" value="4">4</label><div class="likert-connector"></div><label><input type="radio" name="G3" value="5">5</label></div></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 2intro — Optional branch
+  ══════════════════════════════════════════════ -->
+  <div class="section" data-section="2intro">
+    <p class="section-label">Almost done</p>
+    <h2 class="section-title">Role descriptions (optional)</h2>
+    <p class="section-desc">
+      The next questions fill the <strong>role description cards</strong> in the career
+      discovery tool. This will be the text that tells someone exploring the field what your role is
+      actually like from the inside. These responses might be the most valuable part of the
+      whole survey for making the tool genuinely useful.
+    </p>
+    <div class="notice" style="margin-bottom:1.5rem">
+      It takes around 5 more minutes. If you're short on time, you can submit now. Your
+      profile data is already saved and is very useful on its own.
+    </div>
+    <button class="btn btn-primary" onclick="navigate(1)" style="width:100%;text-align:center">
+      Yes, I have 5 more minutes →
+    </button>
+    <button class="btn-skip" onclick="submitForm()">Submit without this section</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION 2 — Qualitative
+  ══════════════════════════════════════════════ -->
+  <div class="section" data-section="2">
+    <p class="section-label">Role description (optional)</p>
+    <h2 class="section-title">What is this role actually like?</h2>
+    <p class="section-desc">
+      Bullet points are very welcome throughout. Quick, honest answers are more useful than
+      polished ones. All questions in this section are optional. Please answer what you can.
+    </p>
+
+    <div class="card">
+      <label for="q20">What does someone in your role actually do day to day?</label>
+      <p class="hint" style="margin-bottom:8px">Bullet points welcome. Keep it concrete.</p>
+      <textarea id="q20" name="role-desc" rows="3" placeholder="e.g. - Review research proposals and give feedback&#10;- Run weekly team standups&#10;- Write briefings for senior leadership"></textarea>
+    </div>
+
+    <div class="card">
+      <label for="q22">What skill or quality do you use most that someone coming into this role probably wouldn't expect to need?</label>
+      <p class="hint" style="margin-bottom:8px">Bullet points welcome.</p>
+      <textarea id="q22" name="q22" rows="3" placeholder="e.g. - Knowing when to say no&#10;- Reading a room quickly&#10;- Writing fast under pressure"></textarea>
+    </div>
+
+    <div class="card">
+      <label for="q23">What kind of person would very likely <strong>not</strong> be happy in this role?</label>
+      <p class="hint" style="margin-bottom:8px">Bullet points welcome. </p>
+      <textarea id="q23" name="q23" rows="4" placeholder="e.g. - Someone who needs quick visible results&#10;- Someone who dislikes ambiguous goals&#10;- Someone who wants to work mostly alone"></textarea>
+    </div>
+
+    <div class="card">
+      <label for="q24">What is the biggest misconception people have about what this work is actually like?</label>
+      <p class="hint" style="margin-bottom:8px">Bullet points welcome.</p>
+      <textarea id="q24" name="q24" rows="3" placeholder="e.g. - People think it's mostly writing, but it's mostly meetings&#10;- People assume you need a PhD"></textarea>
+    </div>
+
+    <div class="card">
+      <label style="margin-bottom: 1rem;">Roughly how do you split your time?<br>
+        <span style="font-weight: 400; color: var(--text-3); font-size: 13px;">Percentages should sum to 100.</span>
+      </label>
+      <div class="time-grid">
+        <label>Solo deep work (reading, writing, coding, analysis)</label>
+        <input type="number" name="t1" min="0" max="100" placeholder="%" oninput="updateSum()">
+
+        <label>Synchronous collaboration (meetings, calls, workshops)</label>
+        <input type="number" name="t2" min="0" max="100" placeholder="%" oninput="updateSum()">
+
+        <label>Async coordination (email, Slack, reviewing others' work)</label>
+        <input type="number" name="t3" min="0" max="100" placeholder="%" oninput="updateSum()">
+
+        <label>External relationship management</label>
+        <input type="number" name="t4" min="0" max="100" placeholder="%" oninput="updateSum()">
+
+        <label>Administrative or logistical tasks</label>
+        <input type="number" name="t5" min="0" max="100" placeholder="%" oninput="updateSum()">
+
+        <label>Other</label>
+        <input type="number" name="t6" min="0" max="100" placeholder="%" oninput="updateSum()">
+
+        <div id="time-sum">Total: 0%</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <label for="q25">Are there any blog posts, articles, podcasts, or other resources you would recommend to someone wanting to understand this type of role better?</label>
+      <p class="hint" style="margin-bottom:8px">Links, titles, or author names. Bullet points welcome.</p>
+      <textarea id="q25" name="q25" rows="3" placeholder="e.g. - 'Talent Needs of Technical AI Safety Teams' (MATS, LessWrong)&#10;- 80k Hours career review for X&#10;- [link to blog post or podcast episode]"></textarea>
+    </div>
+
+    <div class="card">
+      <label for="q26">Anything important about this role that is not captured above?</label>
+      <p class="hint" style="margin-bottom:8px">Bullet points welcome.</p>
+      <textarea id="q26" name="q26" rows="3"></textarea>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       CONFIRMATION
+  ══════════════════════════════════════════════ -->
+  <div class="section" data-section="done">
+    <div style="text-align: center; padding: 2rem 0;">
+      <div class="confirm-icon" style="margin: 0 auto 1.25rem;">✓</div>
+      <h2 class="section-title" style="margin-bottom: 0.5rem;">Thank you.</h2>
+      <p class="section-desc" style="max-width: 480px; margin: 0 auto;">
+        Your response has been recorded. It will be anonymised and averaged with others
+        in similar roles to build the career discovery tool.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <button class="btn btn-ghost" id="btn-back" onclick="navigate(-1)" style="display:none">← Back</button>
+  <div id="nav-spacer" style="flex:1"></div>
+  <button class="btn btn-primary" id="btn-next" onclick="navigate(1)">Continue →</button>
+</nav>
+
+<script>
+// ── Config ──────────────────────────────────────────────
+// Replace with your Formspree endpoint after creating a form at formspree.io
+const FORM_ENDPOINT = 'https://formspree.io/f/xpqnjvwy';
+
+// ── About toggle ─────────────────────────────────────────
+function toggleAbout() {
+  const panel = document.getElementById('about-panel');
+  panel.classList.toggle('open');
+}
+
+// ── State ────────────────────────────────────────────────
+const SECTIONS = ['0', '0b', 'orient', '1a', '1b', '1c', '1d', '2intro', '2', 'done'];
+let current = 0;
+
+// ── Progress ─────────────────────────────────────────────
+function updateProgress() {
+  const pct = (current / (SECTIONS.length - 1)) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  const stepLabel = document.getElementById('step-label');
+  if (current === 0) {
+    stepLabel.textContent = '';
+  } else if (SECTIONS[current] === 'done') {
+    stepLabel.textContent = 'Complete';
+  } else {
+    stepLabel.textContent = `Step ${current} of ${SECTIONS.length - 2}`;
+  }
+  document.getElementById('btn-back').style.display = current > 0 && !['done','2intro'].includes(SECTIONS[current]) ? 'block' : 'none';
+  document.getElementById('btn-next').textContent = SECTIONS[current] === '2' ? 'Submit →' : 'Continue →';
+  document.getElementById('btn-next').style.display = ['done','2intro'].includes(SECTIONS[current]) ? 'none' : 'block';
+  const scoredSections = SECTIONS.filter(s => !['done','2intro','orient'].includes(s));
+  const scoredIdx = scoredSections.indexOf(SECTIONS[current]);
+  document.getElementById('step-label').textContent = (scoredIdx >= 0 && SECTIONS[current] !== 'done')
+    ? `Step ${scoredIdx + 1} of ${scoredSections.length}`
+    : '';
+}
+
+function showSection(idx) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.section[data-section="${SECTIONS[idx]}"]`).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  updateProgress();
+}
+
+// ── Navigation ───────────────────────────────────────────
+function navigate(dir) {
+  if (dir === 1 && !validateSection()) return;
+  if (dir === 1 && SECTIONS[current] === '2') { submitForm(); return; }
+  current = Math.max(0, Math.min(SECTIONS.length - 1, current + dir));
+  showSection(current);
+}
+
+// ── Validation ───────────────────────────────────────────
+function validateSection() {
+  const sec = SECTIONS[current];
+
+  if (sec === '0') {
+    if (!document.querySelector('input[name="org-type"]:checked')) { alert('Please select an organisation type.'); return false; }
+    if (!document.querySelector('input[name="tenure"]:checked')) { alert('Please select how long you have been in this role.'); return false; }
+  }
+
+  if (sec === '0b') {
+    if (!document.querySelector('input[name="role-type"]:checked')) { alert('Please select the role type that best fits yours.'); return false; }
+  }
+
+  if (['1a','1b','1c','1d'].includes(sec)) {
+    const qs = document.querySelectorAll(`.section[data-section="${sec}"] input[type="radio"]`);
+    const names = [...new Set([...qs].map(r => r.name))];
+
+    // Clear previous highlights
+    document.querySelectorAll('.needs-answer').forEach(el => el.classList.remove('needs-answer'));
+
+    let firstMissing = null;
+    for (const name of names) {
+      if (!document.querySelector(`input[name="${name}"]:checked`)) {
+        const q = document.querySelector(`input[name="${name}"]`)?.closest('.likert-question');
+        if (q) { q.classList.add('needs-answer'); if (!firstMissing) firstMissing = q; }
+      }
+    }
+
+    const banner = document.getElementById(`err-${sec}`);
+    if (firstMissing) {
+      if (banner) banner.classList.add('visible');
+      firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return false;
+    } else {
+      if (banner) banner.classList.remove('visible');
+    }
+  }
+
+  if (sec === '2') {
+    const sum = getTimeSum();
+    if (sum > 0 && sum !== 100) { alert(`Time allocation sums to ${sum}%. Please adjust to 100% or leave all fields blank.`); return false; }
+  }
+
+  return true;
+}
+
+// ── Time allocation ──────────────────────────────────────
+function getTimeSum() {
+  return ['t1','t2','t3','t4','t5','t6'].reduce((sum, name) => {
+    const val = parseInt(document.querySelector(`input[name="${name}"]`)?.value || '0') || 0;
+    return sum + val;
+  }, 0);
+}
+
+function updateSum() {
+  const sum = getTimeSum();
+  const el = document.getElementById('time-sum');
+  el.textContent = `Total: ${sum}%`;
+  el.classList.toggle('over', sum > 100);
+}
+
+// ── Other fields ─────────────────────────────────────────
+document.getElementById('org-type-other-radio').addEventListener('change', function() {
+  document.getElementById('org-type-other-row').classList.toggle('visible', this.checked);
+});
+
+document.getElementById('role-type-other-radio').addEventListener('change', function() {
+  document.getElementById('role-type-other-row').classList.toggle('visible', this.checked);
+});
+
+document.getElementById('followup-yes').addEventListener('change', function() {
+  document.getElementById('followup-email-row').classList.toggle('visible', this.checked);
+});
+
+document.querySelectorAll('input[name="followup"]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.getElementById('followup-email-row').classList.toggle(
+      'visible', document.getElementById('followup-yes').checked
+    );
+  });
+});
+
+// ── Submission ───────────────────────────────────────────
+async function submitForm() {
+  const data = {};
+  const form = document.querySelectorAll('input, textarea, select');
+  form.forEach(el => {
+    if (!el.name) return;
+    if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) return;
+    data[el.name] = el.value;
+  });
+
+  try {
+    const res = await fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      current = SECTIONS.length - 1;
+      showSection(current);
+    } else {
+      alert('Something went wrong. Please try again or take a screenshot of your responses.');
+    }
+  } catch {
+    alert('Could not connect. Please check your internet connection and try again.');
+  }
+}
+
+// ── Init ─────────────────────────────────────────────────
+updateProgress();
+</script>
+</body>
+</html>
